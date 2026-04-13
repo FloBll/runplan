@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="RunPlan">
-<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.json">
 <title>RunPlan</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23185FA5'/><text y='.9em' font-size='70' x='15'>&#x1F3C3;</text></svg>">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh}
@@ -22,11 +20,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .section{display:none;padding:16px 20px}
 .section.active{display:block}
 .card{background:#fff;border-radius:12px;border:0.5px solid rgba(0,0,0,0.1);padding:16px;margin-bottom:12px}
-.card-title{font-size:13px;font-weight:500;color:#666;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px}
+.card-title{font-size:12px;font-weight:500;color:#888;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px}
 .field{margin-bottom:12px}
 .field:last-child{margin-bottom:0}
 label{font-size:13px;color:#666;display:block;margin-bottom:4px}
-input,select{width:100%;padding:9px 12px;border:0.5px solid rgba(0,0,0,0.2);border-radius:8px;font-size:15px;background:#fff;color:#1a1a1a;-webkit-appearance:none}
+input,select{width:100%;padding:9px 12px;border:0.5px solid rgba(0,0,0,0.2);border-radius:8px;font-size:15px;background:#fff;color:#1a1a1a;-webkit-appearance:none;appearance:none}
 input:focus,select:focus{outline:2px solid #185FA5;border-color:transparent}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .vfc-row{display:flex;align-items:center;gap:8px}
@@ -35,49 +33,60 @@ input:focus,select:focus{outline:2px solid #185FA5;border-color:transparent}
 .vfc-med{background:#FAEEDA;color:#854F0B}
 .vfc-low{background:#FCEBEB;color:#A32D2D}
 .btn-primary{width:100%;padding:13px;background:#185FA5;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:500;cursor:pointer;margin-top:4px}
-.btn-primary:active{opacity:0.85}
-.btn-secondary{width:100%;padding:11px;background:#fff;color:#185FA5;border:0.5px solid #185FA5;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;margin-top:8px}
-.plan-output{background:#fff;border-radius:12px;border:0.5px solid rgba(0,0,0,0.1);padding:16px;min-height:200px}
-.plan-placeholder{text-align:center;padding:40px 20px;color:#999}
-.plan-placeholder .icon{font-size:40px;margin-bottom:12px}
-.loading{text-align:center;padding:40px 20px;color:#666}
-.spinner{width:32px;height:32px;border:2px solid #e0e0e0;border-top-color:#185FA5;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.plan-content{font-size:14px;line-height:1.7;color:#1a1a1a}
-.plan-content h2{font-size:16px;font-weight:500;margin:16px 0 8px;color:#185FA5}
-.plan-content h3{font-size:14px;font-weight:500;margin:12px 0 4px}
-.plan-content ul{padding-left:18px;margin:4px 0}
-.plan-content li{margin:2px 0}
-.plan-content strong{font-weight:500}
-.meta-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.meta-tag{background:#E6F1FB;color:#185FA5;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:500}
-.allures-card{background:#f8f8f5;border-radius:8px;padding:12px;margin-top:8px}
-.allure-row{display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-bottom:0.5px solid rgba(0,0,0,0.06)}
+.btn-primary:active{opacity:0.85;transform:scale(0.99)}
+.install-banner{background:#E6F1FB;border-radius:12px;padding:14px 16px;margin-bottom:12px;border:0.5px solid #B5D4F4}
+.install-banner p{font-size:13px;color:#0C447C;line-height:1.6}
+.install-banner strong{font-weight:500}
+.allure-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:0.5px solid rgba(0,0,0,0.06)}
 .allure-row:last-child{border-bottom:none}
-.allure-label{color:#666}
+.allure-label{color:#555}
 .allure-val{font-weight:500;color:#185FA5}
+.plan-zone{background:#fff;border-radius:12px;border:0.5px solid rgba(0,0,0,0.1);padding:20px}
+.plan-placeholder{text-align:center;padding:32px 16px;color:#999}
+.plan-placeholder .icon{font-size:36px;margin-bottom:10px}
+.plan-placeholder p{font-size:14px;line-height:1.6}
+.plan-content{font-size:14px;line-height:1.8;color:#1a1a1a}
+.plan-content h2{font-size:16px;font-weight:500;color:#185FA5;margin:16px 0 8px;padding-top:8px;border-top:0.5px solid rgba(0,0,0,0.08)}
+.plan-content h2:first-child{border-top:none;margin-top:0;padding-top:0}
+.plan-content h3{font-size:14px;font-weight:500;margin:10px 0 4px}
+.plan-content ul{padding-left:18px;margin:4px 0 8px}
+.plan-content li{margin:3px 0}
+.plan-content strong{font-weight:500}
+.plan-content p{margin-bottom:8px}
+.loading{text-align:center;padding:40px 20px;color:#666}
+.spinner{width:28px;height:28px;border:2px solid #e0e0e0;border-top-color:#185FA5;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn-secondary{width:100%;padding:11px;background:#fff;color:#185FA5;border:0.5px solid #185FA5;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;margin-top:10px}
+.tip{background:#f8f8f5;border-radius:8px;padding:12px;font-size:13px;color:#555;line-height:1.6;margin-top:12px}
+.tip strong{color:#1a1a1a;font-weight:500}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="header">
-    <h1>&#x1F3C3; RunPlan</h1>
+    <h1>RunPlan</h1>
     <div class="tabs">
       <button class="tab active" onclick="switchTab('profil')">Profil</button>
       <button class="tab" onclick="switchTab('plan')">Plan</button>
+      <button class="tab" onclick="switchTab('allures')">Allures</button>
     </div>
   </div>
 
+  <!-- PROFIL -->
   <div id="section-profil" class="section active">
+    <div class="install-banner">
+      <p><strong>Installer sur iPhone :</strong> ouvre dans Safari → bouton partage → "Sur l'écran d'accueil"</p>
+    </div>
+
     <div class="card">
       <div class="card-title">Objectif</div>
       <div class="field">
         <label>Course cible</label>
         <select id="f-course">
-          <option value="semi">Semi-marathon</option>
+          <option value="semi-marathon">Semi-marathon</option>
           <option value="marathon">Marathon</option>
-          <option value="10k">10 km</option>
-          <option value="5k">5 km</option>
+          <option value="10 km">10 km</option>
+          <option value="5 km">5 km</option>
         </select>
       </div>
       <div class="row">
@@ -87,140 +96,172 @@ input:focus,select:focus{outline:2px solid #185FA5;border-color:transparent}
         </div>
         <div class="field">
           <label>Chrono visé</label>
-          <input type="text" id="f-chrono" placeholder="ex: 1h45">
+          <input type="text" id="f-chrono" placeholder="ex: 1h45:00">
         </div>
       </div>
     </div>
 
-```
-<div class="card">
-  <div class="card-title">Données physiologiques</div>
-  <div class="row">
-    <div class="field">
-      <label>VMA (km/h)</label>
-      <input type="number" id="f-vma" placeholder="ex: 16" step="0.1">
-    </div>
-    <div class="field">
-      <label>VO2max (ml/kg/min)</label>
-      <input type="number" id="f-vo2" placeholder="ex: 52" step="0.1">
-    </div>
-  </div>
-  <div class="row">
-    <div class="field">
-      <label>FC max (bpm)</label>
-      <input type="number" id="f-fcmax" placeholder="ex: 190">
-    </div>
-    <div class="field">
-      <label>FC repos (bpm)</label>
-      <input type="number" id="f-fcrep" placeholder="ex: 52">
-    </div>
-  </div>
-  <div class="field">
-    <label>Seuil lactique (min/km)</label>
-    <input type="text" id="f-seuil" placeholder="ex: 5:00">
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-title">VFC / HRV — Forme du jour</div>
-  <div class="field">
-    <label>VFC matin (ms)</label>
-    <div class="vfc-row">
-      <input type="number" id="f-vfc" placeholder="ex: 68" style="flex:1" oninput="updateVfcBadge()">
-      <span id="vfc-badge" class="vfc-badge" style="display:none"></span>
-    </div>
-  </div>
-  <div class="field">
-    <label>VFC baseline (ms)</label>
-    <input type="number" id="f-vfc-base" placeholder="ex: 65" oninput="updateVfcBadge()">
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-title">Records personnels</div>
-  <div class="row">
-    <div class="field">
-      <label>5 km</label>
-      <input type="text" id="f-rp5" placeholder="ex: 23:30">
-    </div>
-    <div class="field">
-      <label>10 km</label>
-      <input type="text" id="f-rp10" placeholder="ex: 49:00">
-    </div>
-  </div>
-  <div class="row">
-    <div class="field">
-      <label>Semi-marathon</label>
-      <input type="text" id="f-rpsemi" placeholder="ex: 1:50:00">
-    </div>
-    <div class="field">
-      <label>Marathon</label>
-      <input type="text" id="f-rpmarathon" placeholder="ex: 3:45:00">
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-title">Entraînement & contexte</div>
-  <div class="row">
-    <div class="field">
-      <label>Séances / semaine</label>
-      <select id="f-seances">
-        <option value="2">2</option>
-        <option value="3" selected>3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Km actuels / semaine</label>
-      <input type="number" id="f-km" placeholder="ex: 35">
-    </div>
-  </div>
-  <div class="field">
-    <label>Blessures / contraintes</label>
-    <input type="text" id="f-blessures" placeholder="ex: genou droit sensible">
-  </div>
-  <div class="field">
-    <label>Notes libres</label>
-    <input type="text" id="f-notes" placeholder="ex: travail posté, manque de récup...">
-  </div>
-</div>
-
-<button class="btn-primary" onclick="genererPlan()">Générer mon plan</button>
-```
-
-  </div>
-
-  <div id="section-plan" class="section">
-    <div id="plan-meta" class="meta-bar" style="display:none"></div>
-    <div id="plan-allures" style="display:none"></div>
-    <div id="plan-output" class="plan-output">
-      <div class="plan-placeholder">
-        <div class="icon">&#x1F4C5;</div>
-        <p>Remplis ton profil et génère ton plan</p>
+    <div class="card">
+      <div class="card-title">Physiologie</div>
+      <div class="row">
+        <div class="field">
+          <label>VMA (km/h)</label>
+          <input type="number" id="f-vma" placeholder="ex: 16" step="0.1" oninput="calcAllures()">
+        </div>
+        <div class="field">
+          <label>VO₂max (ml/kg/min)</label>
+          <input type="number" id="f-vo2" placeholder="ex: 52" step="0.1">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>FC max (bpm)</label>
+          <input type="number" id="f-fcmax" placeholder="ex: 190">
+        </div>
+        <div class="field">
+          <label>FC repos (bpm)</label>
+          <input type="number" id="f-fcrep" placeholder="ex: 52">
+        </div>
+      </div>
+      <div class="field">
+        <label>Seuil lactique (min/km)</label>
+        <input type="text" id="f-seuil" placeholder="ex: 5:00">
       </div>
     </div>
-    <button id="btn-refresh" class="btn-secondary" style="display:none" onclick="genererPlan()">Recalculer le plan</button>
+
+    <div class="card">
+      <div class="card-title">VFC / Forme du jour</div>
+      <div class="row">
+        <div class="field">
+          <label>VFC baseline (ms)</label>
+          <input type="number" id="f-vfc-base" placeholder="ex: 65" oninput="updateVfcBadge()">
+        </div>
+        <div class="field">
+          <label>VFC ce matin (ms)</label>
+          <input type="number" id="f-vfc" placeholder="ex: 68" oninput="updateVfcBadge()">
+        </div>
+      </div>
+      <div id="vfc-result" style="display:none;margin-top:8px"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Records personnels</div>
+      <div class="row">
+        <div class="field"><label>5 km</label><input type="text" id="f-rp5" placeholder="23:30"></div>
+        <div class="field"><label>10 km</label><input type="text" id="f-rp10" placeholder="49:00"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Semi</label><input type="text" id="f-rpsemi" placeholder="1:50:00"></div>
+        <div class="field"><label>Marathon</label><input type="text" id="f-rpmarathon" placeholder="3:45:00"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Entraînement</div>
+      <div class="row">
+        <div class="field">
+          <label>Séances / semaine</label>
+          <select id="f-seances">
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Volume actuel (km/sem)</label>
+          <input type="number" id="f-km" placeholder="ex: 35">
+        </div>
+      </div>
+      <div class="field">
+        <label>Blessures / contraintes</label>
+        <input type="text" id="f-blessures" placeholder="ex: genou droit sensible">
+      </div>
+      <div class="field">
+        <label>Notes libres</label>
+        <input type="text" id="f-notes" placeholder="ex: travail posté, récup limitée...">
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="genererPlan()">Générer mon plan</button>
+  </div>
+
+  <!-- PLAN -->
+  <div id="section-plan" class="section">
+    <div id="plan-zone" class="plan-zone">
+      <div id="plan-output">
+        <div class="plan-placeholder">
+          <div class="icon">🗓️</div>
+          <p>Remplis ton profil et clique<br>"Générer mon plan"</p>
+        </div>
+        <div class="tip">
+          <strong>Comment ça marche :</strong> le plan est généré par l'IA à partir de ton profil. Modifie une donnée (VFC, chrono visé…) et régénère pour adapter le plan.
+        </div>
+      </div>
+    </div>
+    <button id="btn-regen" class="btn-secondary" style="display:none" onclick="genererPlan()">Recalculer le plan</button>
+  </div>
+
+  <!-- ALLURES -->
+  <div id="section-allures" class="section">
+    <div class="card">
+      <div class="card-title">Zones d'allure (basées sur ta VMA)</div>
+      <div id="allures-content">
+        <div style="text-align:center;padding:24px;color:#999;font-size:14px">Saisis ta VMA dans le profil</div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
+const API_KEY = ""; // Laisse vide si tu passes par Claude.ai — remplis si hébergé ailleurs
+
 function switchTab(t){
-  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',['profil','plan'][i]===t));
+  const names=['profil','plan','allures'];
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',names[i]===t));
   document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id==='section-'+t));
+}
+
+function toMinKm(vkmh){
+  const t=60/vkmh, m=Math.floor(t), s=Math.round((t-m)*60);
+  return `${m}:${s.toString().padStart(2,'0')} /km`;
+}
+
+function calcAllures(){
+  const vma=parseFloat(document.getElementById('f-vma').value);
+  const div=document.getElementById('allures-content');
+  if(!vma||vma<5||vma>30){
+    div.innerHTML='<div style="text-align:center;padding:24px;color:#999;font-size:14px">Saisis ta VMA dans le profil</div>';
+    return;
+  }
+  const zones=[
+    ['Récupération active','< 65% VMA',toMinKm(vma*0.63)],
+    ['Endurance fondamentale','65–75% VMA',toMinKm(vma*0.70)],
+    ['Allure semi cible','82–88% VMA',toMinKm(vma*0.85)],
+    ['Seuil aérobie','85–90% VMA',toMinKm(vma*0.875)],
+    ['Fractionné long','90–95% VMA',toMinKm(vma*0.925)],
+    ['Fractionné court','100–105% VMA',toMinKm(vma*1.02)],
+  ];
+  div.innerHTML=zones.map(([l,p,v])=>`
+    <div class="allure-row">
+      <span class="allure-label">${l}<br><span style="font-size:11px;color:#aaa">${p}</span></span>
+      <span class="allure-val">${v}</span>
+    </div>`).join('');
 }
 
 function updateVfcBadge(){
   const vfc=parseFloat(document.getElementById('f-vfc').value);
   const base=parseFloat(document.getElementById('f-vfc-base').value);
-  const badge=document.getElementById('vfc-badge');
-  if(!vfc||!base){badge.style.display='none';return;}
-  const ratio=(vfc-base)/base*100;
-  badge.style.display='inline-block';
-  if(ratio>=-5){badge.className='vfc-badge vfc-ok';badge.textContent='Forme OK';}
-  else if(ratio>=-10){badge.className='vfc-badge vfc-med';badge.textContent='Modéré';}
-  else{badge.className='vfc-badge vfc-low';badge.textContent='Fatigue';}
+  const div=document.getElementById('vfc-result');
+  if(!vfc||!base){div.style.display='none';return;}
+  const r=(vfc-base)/base*100;
+  let cls,txt,conseil;
+  if(r>=-5){cls='vfc-ok';txt='Forme : bonne';conseil='Séance normale ou intensifiée possible.';}
+  else if(r>=-10){cls='vfc-med';txt='Forme : modérée';conseil='Privilégie endurance fondamentale, évite le fractionné intense.';}
+  else{cls='vfc-low';txt='Forme : fatigue';conseil='Repos ou sortie très légère fortement conseillée.';}
+  div.style.display='block';
+  div.innerHTML=`<span class="vfc-badge ${cls}">${txt} (${r>=0?'+':''}${r.toFixed(1)}%)</span>
+    <p style="font-size:12px;color:#666;margin-top:6px">${conseil}</p>`;
 }
 
 function getData(){
@@ -246,111 +287,116 @@ function getData(){
   };
 }
 
-function calcAllures(d){
-  if(!d.vma) return null;
-  const vma=parseFloat(d.vma);
-  const toMinKm=v=>{const t=60/v;const m=Math.floor(t);const s=Math.round((t-m)*60);return m+':'+(s<10?'0':'')+s+' /km'};
-  return {
-    'Endurance fondamentale (70% VMA)':toMinKm(vma*0.70),
-    'Allure seuil (85% VMA)':toMinKm(vma*0.85),
-    'Fractionné long (92% VMA)':toMinKm(vma*0.92),
-    'Fractionné court (102% VMA)':toMinKm(vma*1.02),
-  };
+function weeksUntil(dateStr){
+  if(!dateStr) return '?';
+  const diff=Math.round((new Date(dateStr)-new Date())/(1000*60*60*24*7));
+  return diff>0?diff:'?';
+}
+
+function vfcStatus(d){
+  if(!d.vfc||!d.vfcBase) return '';
+  const r=(parseFloat(d.vfc)-parseFloat(d.vfcBase))/parseFloat(d.vfcBase)*100;
+  if(r>=-5) return 'Forme du jour : BONNE — plan normal.';
+  if(r>=-10) return 'Forme du jour : MODÉRÉE — adapter intensité, éviter fractionné.';
+  return 'Forme du jour : FATIGUE — semaine allégée, pas de séance intense.';
 }
 
 function buildPrompt(d){
-  const vfcStatus=()=>{
-    if(!d.vfc||!d.vfcBase) return '';
-    const r=(parseFloat(d.vfc)-parseFloat(d.vfcBase))/parseFloat(d.vfcBase)*100;
-    if(r>=-5) return 'Forme du jour : BONNE';
-    if(r>=-10) return 'Forme du jour : MODEREE — adapter intensité';
-    return 'Forme du jour : FATIGUE — alléger la semaine';
-  };
-  const weeksLeft=()=>{
-    if(!d.date) return '?';
-    const diff=Math.round((new Date(d.date)-new Date())/(1000*60*60*24*7));
-    return diff>0?diff:'?';
-  };
-  return `Tu es un coach running expert. Génère un plan d'entraînement personnalisé en français.
+  return `Tu es un coach running expert. Génère un plan d'entraînement personnalisé en français, structuré semaine par semaine avec allures précises en min/km.
 
-PROFIL :
-- Objectif : ${d.course} le ${d.date||'?'} (dans ~${weeksLeft()} semaines), chrono visé : ${d.chrono||'non précisé'}
-- VMA : ${d.vma||'?'} km/h | VO2max : ${d.vo2||'?'} ml/kg/min
-- FC max/repos : ${d.fcmax||'?'} / ${d.fcrep||'?'} bpm | Seuil lactique : ${d.seuil||'?'} /km
-- ${vfcStatus()}
-- Records : 5k ${d.rp5||'?'} | 10k ${d.rp10||'?'} | Semi ${d.rpsemi||'?'} | Marathon ${d.rpmarathon||'?'}
-- Volume actuel : ${d.km||'?'} km/sem en ${d.seances} séances/sem
+PROFIL ATHLÈTE :
+- Course : ${d.course} | Date : ${d.date||'?'} (~${weeksUntil(d.date)} semaines) | Chrono visé : ${d.chrono||'?'}
+- VMA : ${d.vma||'?'} km/h | VO₂max : ${d.vo2||'?'} ml/kg/min
+- FC max/repos : ${d.fcmax||'?'}/${d.fcrep||'?'} bpm | Seuil lactique : ${d.seuil||'?'} /km
+- ${vfcStatus(d)}
+- Records — 5k : ${d.rp5||'?'} | 10k : ${d.rp10||'?'} | Semi : ${d.rpsemi||'?'} | Marathon : ${d.rpmarathon||'?'}
+- Volume actuel : ${d.km||'?'} km/sem en ${d.seances} séances/semaine
 - Contraintes : ${d.blessures||'aucune'} | Notes : ${d.notes||'aucune'}
 
-CONSIGNES :
-1. Bilan rapide du profil (2-3 phrases)
-2. Plan semaine par semaine jusqu'à la course avec ## Semaine X comme titre
-3. Pour chaque semaine : objectif, séances détaillées (type + distance + allure), volume total
-4. Si fatigue détectée (VFC), adapter la semaine en cours
-5. Terminer par 3 conseils personnalisés`;
+STRUCTURE ATTENDUE :
+1. Bilan du profil (2-3 phrases)
+2. Allures cibles personnalisées (EF, seuil, fractionné)
+3. Plan semaine par semaine (## Semaine N) avec objectif, séances détaillées, volume total
+4. Adaptation si VFC indique fatigue
+5. 3 conseils spécifiques à ce profil`;
 }
 
 async function genererPlan(){
   switchTab('plan');
   const out=document.getElementById('plan-output');
-  const meta=document.getElementById('plan-meta');
-  const alluresDiv=document.getElementById('plan-allures');
-  const refreshBtn=document.getElementById('btn-refresh');
-  out.innerHTML='<div class="loading"><div class="spinner"></div><p>Génération en cours...</p></div>';
-  meta.style.display='none';
-  alluresDiv.style.display='none';
-  refreshBtn.style.display='none';
+  const regen=document.getElementById('btn-regen');
+  out.innerHTML='<div class="loading"><div class="spinner"></div><p>Génération du plan...</p></div>';
+  regen.style.display='none';
+
   const d=getData();
-  const allures=calcAllures(d);
+
+  // Si pas de clé API : fallback vers Claude.ai via prompt affiché
+  if(!API_KEY){
+    out.innerHTML=`<div class="plan-placeholder">
+      <p style="font-size:13px;color:#555;text-align:left;line-height:1.7">
+        <strong style="color:#1a1a1a">Pour utiliser hors Claude.ai :</strong><br>
+        Ajoute ta clé API Anthropic dans la variable <code>API_KEY</code> du fichier index.html.<br><br>
+        <strong style="color:#1a1a1a">Prompt généré :</strong>
+      </p>
+      <pre style="font-size:11px;background:#f8f8f5;padding:10px;border-radius:8px;white-space:pre-wrap;text-align:left;margin-top:8px;color:#333">${buildPrompt(d)}</pre>
+    </div>`;
+    regen.style.display='block';
+    return;
+  }
+
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':API_KEY,
+        'anthropic-version':'2023-06-01'
+      },
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
+        max_tokens:2000,
         messages:[{role:'user',content:buildPrompt(d)}]
       })
     });
     const data=await res.json();
+    if(data.error) throw new Error(data.error.message);
     const text=data.content.map(b=>b.text||'').join('');
     const html=text
       .replace(/^## (.+)$/gm,'<h2>$1</h2>')
       .replace(/^### (.+)$/gm,'<h3>$1</h3>')
       .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
       .replace(/^- (.+)$/gm,'<li>$1</li>')
-      .replace(/(<li>[^\n]+<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>')
-      .replace(/\n\n/g,'<br><br>')
+      .replace(/(<li>[^]*?<\/li>\n?)+/g,'<ul>$&</ul>')
+      .replace(/\n{2,}/g,'</p><p>')
       .trim();
-    out.innerHTML='<div class="plan-content">'+html+'</div>';
-    const label={'semi':'Semi-marathon','marathon':'Marathon','10k':'10 km','5k':'5 km'}[d.course];
-    meta.innerHTML=(label?`<span class="meta-tag">${label}</span>`:'')+
-      (d.chrono?`<span class="meta-tag">Objectif ${d.chrono}</span>`:'')+
-      (d.date?`<span class="meta-tag">${new Date(d.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'})}</span>`:'');
-    meta.style.display='flex';
-    if(allures){
-      const rows=Object.entries(allures).map(([k,v])=>`<div class="allure-row"><span class="allure-label">${k}</span><span class="allure-val">${v}</span></div>`).join('');
-      alluresDiv.innerHTML=`<div class="card"><div class="card-title">Allures cibles</div><div class="allures-card">${rows}</div></div>`;
-      alluresDiv.style.display='block';
-    }
-    refreshBtn.style.display='block';
+    out.innerHTML=`<div class="plan-content"><p>${html}</p></div>`;
+    regen.style.display='block';
   }catch(e){
-    out.innerHTML='<div class="plan-placeholder"><p>Erreur de connexion. Réessaie.</p></div>';
+    out.innerHTML=`<div class="plan-placeholder"><p style="color:#c0392b">Erreur : ${e.message}</p></div>`;
+    regen.style.display='block';
   }
 }
 
-// Sauvegarde automatique dans localStorage
-const fields=['f-course','f-date','f-chrono','f-vma','f-vo2','f-fcmax','f-fcrep','f-seuil','f-vfc','f-vfc-base','f-rp5','f-rp10','f-rpsemi','f-rpmarathon','f-seances','f-km','f-blessures','f-notes'];
-window.addEventListener('load',()=>{
-  fields.forEach(id=>{
-    const el=document.getElementById(id);
-    const saved=localStorage.getItem(id);
-    if(saved&&el) el.value=saved;
-    if(el) el.addEventListener('input',()=>localStorage.setItem(id,el.value));
-  });
-  updateVfcBadge();
+// Sauvegarde locale automatique
+const FIELDS=['f-course','f-date','f-chrono','f-vma','f-vo2','f-fcmax','f-fcrep','f-seuil','f-vfc','f-vfc-base','f-rp5','f-rp10','f-rpsemi','f-rpmarathon','f-seances','f-km','f-blessures','f-notes'];
+function saveData(){
+  const obj={};
+  FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)obj[id]=el.value;});
+  localStorage.setItem('runplan_data',JSON.stringify(obj));
+}
+function loadData(){
+  try{
+    const obj=JSON.parse(localStorage.getItem('runplan_data')||'{}');
+    FIELDS.forEach(id=>{const el=document.getElementById(id);if(el&&obj[id])el.value=obj[id];});
+    calcAllures();
+    updateVfcBadge();
+  }catch(e){}
+}
+FIELDS.forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('input',saveData);
 });
+loadData();
 </script>
-
 </body>
 </html>
